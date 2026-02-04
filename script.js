@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     
     // CONFIG: Replace this URL with your actual Render URL after deploying the backend
-    const API_URL = "https://your-backend-service.onrender.com"; 
+    const API_URL = "https://bibek-backend-1.onrender.com"; 
 
     // --- 1. Skill Progress Animation ---
     const skillSection = document.querySelector('#soft-skills');
@@ -74,4 +74,5 @@ window.addEventListener('load', () => {
             preloader.classList.add('loader-hidden');
         }, 1000);
     }
+
 });
