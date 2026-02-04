@@ -135,7 +135,7 @@ body {
 
 /* --- 5. HERO SECTION --- */
 .hero-section {
-    padding: 100px 0 100px; 
+    padding: 140px 0 100px; 
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -174,7 +174,7 @@ body {
 }
 
 .main-title {
-    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     line-height: 1.1;
     margin-bottom: 1.5rem;
 }
@@ -186,17 +186,15 @@ body {
     margin-bottom: 1rem;
 }
 
-/* --- 6. SWINGING ROPE CALENDAR VISUAL (FIXED SYNC) --- */
+/* --- 6. SWINGING ROPE CALENDAR VISUAL --- */
 .hero-visual {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
     perspective: 2000px;
-    margin-top: -80px; /* Moved UP */
 }
 
-/* The Fixed Nail */
 .hero-visual::before {
     content: '';
     position: absolute;
@@ -211,18 +209,16 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.8);
 }
 
-/* The Swinging Container */
 .swing-container {
     position: relative;
     width: 100%;
     max-width: 420px;
-    margin-top: 10px; /* Distance from nail to start of rope */
+    margin-top: 10px;
     transform-origin: top center;
     animation: ropeSwing 6s ease-in-out infinite;
     z-index: 10;
 }
 
-/* The Rope - NOW INSIDE SWING CONTAINER */
 .swing-container::before {
     content: '';
     position: absolute;
@@ -230,14 +226,12 @@ body {
     left: 0;
     right: 0;
     height: 100px;
-    /* Drawing two ropes from top-center to corners */
     background: 
         linear-gradient(to top left, transparent 49%, #64748b 50%, #64748b 51%, transparent 52%) 0% 0% / 50% 100% no-repeat,
         linear-gradient(to top right, transparent 49%, #64748b 50%, #64748b 51%, transparent 52%) 100% 0% / 50% 100% no-repeat;
     z-index: 1;
 }
 
-/* Wall Shadow - Moves opposite to image */
 .swing-container::after {
     content: '';
     position: absolute;
@@ -256,14 +250,13 @@ body {
 .swing-container img {
     position: relative;
     width: 100%;
-    margin-top: 90px; /* Gap for the rope */
+    margin-top: 90px;
     border-radius: 4px;
     border: 10px solid #ffffff;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 5;
 }
 
-/* Tags attached to the moving container */
 .tag-top-right, .tag-bottom-left {
     position: absolute;
     padding: 10px 18px;
@@ -328,21 +321,21 @@ body {
     box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3);
 }
 
-/* --- 8. EXPERTISE SECTION (Tilted) --- */
-.section-padding { padding: 120px 0; }
+/* --- 8. EXPERTISE SECTION --- */
+.section-padding { padding: 100px 0; }
 .section-header { text-align: center; margin-bottom: 5rem; }
-.section-header h2 { font-size: 3rem; }
+.section-header h2 { font-size: clamp(2rem, 5vw, 3rem); }
 
 .expertise-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2.5rem;
     perspective: 1000px;
 }
 
 .expertise-card {
     background: var(--glass);
-    padding: 3.5rem;
+    padding: 3rem;
     border-radius: 30px;
     border: 1px solid var(--border);
     transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -393,8 +386,6 @@ body {
     text-align: center;
 }
 
-.education-card i { font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem; }
-
 /* --- 10. CONTACT SECTION --- */
 .contact-box {
     background: var(--glass);
@@ -409,8 +400,9 @@ body {
     gap: 5rem;
 }
 
+/* Corrected: Removed display:none so form is functional */
 .contact-form input, .contact-form textarea {
-    display: none;
+    display: block;
     width: 100%;
     padding: 1.3rem;
     background: rgba(255,255,255,0.04);
@@ -419,6 +411,7 @@ body {
     color: white;
     font-size: 1rem;
     margin-bottom: 1.5rem;
+    outline: none;
 }
 
 .input-group {
@@ -428,7 +421,7 @@ body {
 }
 
 .btn-submit {
-    display: none;
+    display: block;
     width: 100%;
     padding: 1.1rem;
     background: var(--primary);
@@ -440,10 +433,8 @@ body {
     transition: 0.3s;
 }
 
-.contact-info-side { margin-top: 4.5rem; }
+.contact-info-side { margin-top: 2rem; }
 .info-card { display: flex; gap: 20px; margin-bottom: 2.5rem; }
-.info-card i { color: var(--primary); font-size: 1.6rem; }
-.info-card h4 { margin-bottom: 5px; color: var(--gray); }
 
 /* --- 11. FOOTER --- */
 footer {
@@ -452,24 +443,54 @@ footer {
     border-top: 1px solid var(--border);
 }
 
-.copyright { color: var(--gray); font-size: 0.95rem; }
-.footer-tagline { color: var(--gray); font-size: 0.8rem; margin-top: 15px; letter-spacing: 1px; }
-
-/* --- 12. RESPONSIVE --- */
+/* --- 12. FULL RESPONSIVE OVERRIDES --- */
 @media (max-width: 992px) {
-    .hero-grid, .skills-grid, .contact-layout { grid-template-columns: 1fr; }
+    .container { padding: 0 1.5rem; }
+    
+    .hero-grid, .skills-grid, .contact-layout { 
+        grid-template-columns: 1fr; 
+        text-align: center;
+    }
+
+    .hero-section { padding-top: 120px; }
+    
+    .hero-visual { 
+        order: -1; 
+        margin-bottom: 3rem;
+        transform: scale(0.9);
+    }
+
+    .hero-subtitle { margin: 0 auto 2rem; }
+    .social-links-row { justify-content: center; }
+
     .nav-links { display: none; }
-    .expertise-card { transform: none; }
+    
+    .expertise-card { transform: none !important; }
+    
+    .input-group { grid-template-columns: 1fr; gap: 0; }
 }
 
+@media (max-width: 768px) {
+    .main-title { font-size: 2.5rem; }
+    
+    .hero-visual { transform: scale(0.8); }
+    
+    .tag-top-right { right: -10px; }
+    .tag-bottom-left { left: -10px; }
+    
+    .contact-box { padding: 2rem; }
+    
+    .expertise-grid { grid-template-columns: 1fr; }
+    
+    .education-card { padding: 2.5rem; }
+}
 
+@media (max-width: 480px) {
+    .hero-visual { transform: scale(0.65); }
+    .btn-main-glow { width: 100%; text-align: center; }
+}
 
-
-
-
-
-
-/* --- Success/Error Alerts --- */
+/* --- Alert Styles --- */
 .alert {
     padding: 1rem;
     border-radius: 12px;
@@ -481,20 +502,10 @@ footer {
     animation: fadeInSlide 0.4s ease forwards;
 }
 
-.success-alert {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.error-alert {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-}
+.success-alert { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.error-alert { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
 
 @keyframes fadeInSlide {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
-
