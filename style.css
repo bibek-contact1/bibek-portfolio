@@ -16,19 +16,27 @@
     scroll-behavior: smooth;
 }
 
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+html, body {
+    width: 100%;
+    /* This is the master fix for horizontal scrolling */
+    overflow-x: hidden; 
+    position: relative;
     background-color: var(--dark);
     color: var(--light);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll from swinging */
-    width: 100%;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    /* Added to keep internal items contained */
+    position: relative; 
+    width: 100%;
 }
 
 /* --- 2. PRE-LOADER --- */
@@ -155,11 +163,13 @@ body {
 
 /* --- 5. HERO SECTION --- */
 .hero-section {
-    padding: 100px 0 100px; 
+    padding: 120px 0 80px; 
     min-height: 100vh;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Ensures 3D swings don't push page width */
+    /* Added overflow hidden here to clip the swinging rope visually */
+    overflow: hidden; 
+    width: 100%;
 }
 
 .hero-grid {
@@ -167,6 +177,7 @@ body {
     grid-template-columns: 1.2fr 0.8fr;
     gap: 4rem;
     align-items: center;
+    width: 100%;
 }
 
 .status-indicator {
@@ -195,7 +206,7 @@ body {
 }
 
 .main-title {
-    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
     line-height: 1.1;
     margin-bottom: 1.5rem;
 }
@@ -207,14 +218,15 @@ body {
     margin-bottom: 1rem;
 }
 
-/* --- 6. SWINGING ROPE CALENDAR VISUAL (FIXED SYNC) --- */
+/* --- 6. SWINGING ROPE VISUAL --- */
 .hero-visual {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: center;
-    perspective: 2000px;
-    margin-top: -80px;
+    /* Perspective can cause scroll - lowered for stability */
+    perspective: 1500px; 
+    margin-top: -60px;
 }
 
 .hero-visual::before {
@@ -292,17 +304,18 @@ body {
     z-index: 20;
 }
 
-.tag-top-right { top: 110px; right: -30px; }
-.tag-bottom-left { bottom: 30px; left: -30px; border-left: 4px solid var(--primary); }
+/* Corrected Tags: Ensuring they don't pop out of mobile container */
+.tag-top-right { top: 110px; right: -20px; }
+.tag-bottom-left { bottom: 30px; left: -20px; border-left: 4px solid var(--primary); }
 
 @keyframes ropeSwing {
-    0%, 100% { transform: rotateX(10deg) rotateZ(-3deg); }
-    50% { transform: rotateX(20deg) rotateZ(3deg); }
+    0%, 100% { transform: rotateX(5deg) rotateZ(-3deg); }
+    50% { transform: rotateX(15deg) rotateZ(3deg); }
 }
 
 @keyframes shadowSwing {
-    0%, 100% { transform: translateX(20px) scale(0.95); opacity: 0.3; }
-    50% { transform: translateX(-20px) scale(1); opacity: 0.5; }
+    0%, 100% { transform: translateX(15px) scale(0.95); opacity: 0.3; }
+    50% { transform: translateX(-15px) scale(1); opacity: 0.5; }
 }
 
 /* --- 7. SOCIALS & BUTTONS --- */
@@ -344,13 +357,13 @@ body {
 }
 
 /* --- 8. EXPERTISE SECTION (Tilted) --- */
-.section-padding { padding: 120px 0; }
+.section-padding { padding: 100px 0; }
 .section-header { text-align: center; margin-bottom: 5rem; }
-.section-header h2 { font-size: 3rem; }
+.section-header h2 { font-size: clamp(2rem, 5vw, 3rem); }
 
 .expertise-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2.5rem;
     perspective: 1000px;
 }
@@ -371,11 +384,7 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-.expertise-card i { 
-    font-size: 3rem; 
-    color: var(--primary); 
-    margin-bottom: 2rem; 
-}
+.expertise-card i { font-size: 3rem; color: var(--primary); margin-bottom: 2rem; }
 
 /* --- 9. SKILLS SECTION --- */
 .skills-grid {
@@ -387,12 +396,7 @@ body {
 
 .skills-title { font-size: 2.8rem; margin-bottom: 2rem; }
 .skill-item { margin-bottom: 2.5rem; }
-.skill-info { 
-    display: flex; 
-    justify-content: space-between; 
-    margin-bottom: 12px; 
-    font-weight: 600; 
-}
+.skill-info { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; }
 
 .progress-line {
     height: 10px;
@@ -417,11 +421,7 @@ body {
     text-align: center;
 }
 
-.education-card i { 
-    font-size: 4rem; 
-    color: var(--primary); 
-    margin-bottom: 1.5rem; 
-}
+.education-card i { font-size: 4rem; color: var(--primary); margin-bottom: 1.5rem; }
 
 /* --- 10. CONTACT SECTION --- */
 .contact-box {
@@ -437,7 +437,7 @@ body {
     gap: 5rem;
 }
 
-/* CORRECTED: Removed display:none so form is visible */
+/* Restored form visibility */
 .contact-form input, 
 .contact-form textarea {
     display: block;
@@ -457,7 +457,6 @@ body {
     gap: 1.5rem;
 }
 
-/* CORRECTED: Removed display:none */
 .btn-submit {
     display: block;
     width: 100%;
@@ -484,108 +483,82 @@ footer {
 }
 
 .copyright { color: var(--gray); font-size: 0.95rem; }
-.footer-tagline { 
-    color: var(--gray); 
-    font-size: 0.8rem; 
-    margin-top: 15px; 
-    letter-spacing: 1px; 
+.footer-tagline { color: var(--gray); font-size: 0.8rem; margin-top: 15px; letter-spacing: 1px; }
+
+/* --- 12. MASTER RESPONSIVE OVERRIDES --- */
+@media (max-width: 1024px) {
+    .hero-grid { gap: 2rem; }
+    .main-title { font-size: 3.5rem; }
 }
 
-/* --- 12. RESPONSIVE ENGINE (FULLY FIXED FOR SWING) --- */
 @media (max-width: 992px) {
+    .container { padding: 0 1.5rem; }
+    
     .hero-grid, 
     .skills-grid, 
     .contact-layout { 
         grid-template-columns: 1fr; 
-    }
-    
-    .nav-links { 
-        display: none; 
-    }
-    
-    .expertise-card { 
-        transform: none !important; 
+        text-align: center;
     }
 
+    .nav-links { display: none; }
+
     .hero-section {
-        padding: 140px 0 60px;
-        text-align: center;
+        padding-top: 140px;
     }
 
     .hero-visual {
         order: -1;
         margin-top: 0;
-        margin-bottom: 50px;
-        transform: scale(0.9);
+        margin-bottom: 60px;
+        /* Forced scaling to keep swing inside narrow viewports */
+        transform: scale(0.9); 
     }
 
-    .hero-subtitle {
-        margin: 0 auto 1.5rem;
-    }
+    .hero-subtitle { margin: 0 auto 2rem; }
+    .social-links-row { justify-content: center; }
+    
+    .expertise-card { transform: none !important; }
 
-    .social-links-row {
-        justify-content: center;
-    }
+    .contact-info-side { margin-top: 2rem; }
 }
 
 @media (max-width: 768px) {
-    .main-title {
-        font-size: 2.5rem;
-    }
-
-    /* Scaling the swing to stay inside phone screen */
+    .main-title { font-size: 2.4rem; }
+    
     .hero-visual {
         transform: scale(0.8);
     }
 
-    .tag-top-right { right: -10px; }
-    .tag-bottom-left { left: -10px; }
+    .tag-top-right { right: 0; }
+    .tag-bottom-left { left: 0; }
 
     .input-group {
         grid-template-columns: 1fr;
         gap: 0;
     }
 
-    .contact-box {
-        padding: 2.5rem;
-    }
+    .contact-box { padding: 2rem; }
 }
 
 @media (max-width: 480px) {
-    .hero-visual {
-        transform: scale(0.7);
-    }
+    .main-title { font-size: 2rem; }
     
-    .section-header h2 {
-        font-size: 2.2rem;
+    .hero-visual {
+        transform: scale(0.65);
+        /* Critical for small phones to stop horizontal jank */
+        margin-left: -10px; 
     }
+
+    .btn-main-glow { width: 100%; }
 }
 
-/* --- Success/Error Alerts --- */
+/* --- Alerts --- */
 .alert {
     padding: 1rem;
     border-radius: 12px;
     margin-bottom: 1.5rem;
     font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    animation: fadeInSlide 0.4s ease forwards;
 }
-
-.success-alert {
-    background: rgba(16, 185, 129, 0.1);
-    color: #10b981;
-    border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.error-alert {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-    border: 1px solid rgba(239, 68, 68, 0.2);
-}
-
-@keyframes fadeInSlide {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+.success-alert { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2); }
+.error-alert { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.2); }
